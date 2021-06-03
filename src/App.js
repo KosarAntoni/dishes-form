@@ -1,25 +1,44 @@
-import logo from './logo.svg';
-import './App.css';
+import Form from "./components/Form";
+import React, {useState} from "react";
+import axios from "axios";
+import Modal from "./components/Modal";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const initialValues = {
+    preparation_time: "00:00:00"
+}
+
+const App = () => {
+    const [error, setError] = useState("")
+    const [success, setSuccess] = useState("")
+
+    const handleSubmit = (data) => {
+        if (data) axios.post('https://frosty-wood-6558.getsandbox.com:443/dishes', data)
+            .then(response => setSuccess(response.message))
+            .catch(response => setError(response.message))
+    }
+
+    return(
+        <div className="container">
+            <div className="column is-half is-offset-one-quarter">
+                <h1 className="title">Dish Form</h1>
+                <Form
+                    onSubmit={handleSubmit}
+                    initialValues={initialValues}
+                />
+            </div>
+
+            <Modal
+                message={success}
+                handleClose={() => setSuccess('')}
+            />
+
+            <Modal
+                message={error}
+                handleClose={() => setError('')}
+                isError
+            />
+        </div>
+    )
 }
 
 export default App;
