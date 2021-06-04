@@ -7,6 +7,14 @@ const initialValues = {
     preparation_time: "00:00:00"
 }
 
+const renderObject = obj => {
+    return (
+        <ul>
+            {Object.keys(obj).map((visit, index) => <li key={index}>{visit} : {obj[visit]}</li>)}
+        </ul>
+    )
+}
+
 const App = () => {
     const [error, setError] = useState("")
     const [success, setSuccess] = useState("")
@@ -17,7 +25,7 @@ const App = () => {
         data && axios.post('https://frosty-wood-6558.getsandbox.com:443/dishes', data)
             .then(response => {
                 setLoading(false)
-                setSuccess(response.message)
+                setSuccess(renderObject(response.data))
             })
             .catch(response => {
                 setLoading(false)
@@ -25,7 +33,7 @@ const App = () => {
             })
     }
 
-    return(
+    return (
         <div className="container">
             <div className="column is-half is-offset-one-quarter">
                 <h1 className="title">Dish Form</h1>
