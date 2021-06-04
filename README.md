@@ -29,7 +29,9 @@ To Visit App:
 
 
 ## Status
-Project is: finished.
+Project is: _finished._
+
+Time spend: _about 3 hours_
 
 ## Contact
 Created by [Anton Kosar](https://www.linkedin.com/in/anton-kosar-51a33617a/) - feel free to contact me!

@@ -6,7 +6,7 @@ import Radio from "./Radio";
 
 const required = value => (value || typeof value === 'number' ? undefined : 'Required')
 
-let Form = ({handleSubmit, pristine, reset, submitting, typeValue}) => {
+let Form = ({handleSubmit, pristine, reset, submitting, typeValue, isLoading}) => {
     return (
         <form className="box" onSubmit={handleSubmit}>
             <div className="block">
@@ -90,7 +90,7 @@ let Form = ({handleSubmit, pristine, reset, submitting, typeValue}) => {
             <div className="field is-grouped">
                 <p className="control">
                     <button
-                        className="button is-primary"
+                        className={`button is-primary ${isLoading && "is-loading"}`}
                         type="submit"
                         disabled={pristine || submitting}
                     >

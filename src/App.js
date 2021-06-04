@@ -10,11 +10,19 @@ const initialValues = {
 const App = () => {
     const [error, setError] = useState("")
     const [success, setSuccess] = useState("")
+    const [loading, setLoading] = useState(false)
 
     const handleSubmit = (data) => {
-        if (data) axios.post('https://frosty-wood-6558.getsandbox.com:443/dishes', data)
-            .then(response => setSuccess(response.message))
-            .catch(response => setError(response.message))
+        setLoading(true)
+        data && axios.post('https://frosty-wood-6558.getsandbox.com:443/dishes', data)
+            .then(response => {
+                setLoading(false)
+                setSuccess(response.message)
+            })
+            .catch(response => {
+                setLoading(false)
+                setError(response.message)
+            })
     }
 
     return(
@@ -24,6 +32,7 @@ const App = () => {
                 <Form
                     onSubmit={handleSubmit}
                     initialValues={initialValues}
+                    isLoading={loading}
                 />
             </div>
 
